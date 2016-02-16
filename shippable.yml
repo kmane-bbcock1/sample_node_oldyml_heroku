@@ -11,9 +11,14 @@ node_js:
 # The path for Xunit to output test reports
 env:
   global:
-    - APP_NAME=oldymlheroku-bb
+    - APP_NAME=withtoolbeltbb-oldyml
+    - BRANCH=withtoolbelt
+    - secure: H9A1uikWu8ZNS1raJw7PssyOD7jamuSxDkJ3bg7GIwTXEq9HxN83Q+bY5PDtRo4nufZ4L/XjfRSKgFdBLxsY0goau2vXEsMXFCeWf6L4W6UXdN5i9//Lq1KAI/c7c56Ig0agxngQmH+msWOxLjt0TH6S9WK6LNmWryI4yPPfttdQbw2id6UCqARUix9NJ+EF6aPv2VhaeQsWsMe24ottakHiXTPXy/wZaZdnxWnQ2Ys06R7WhlAsRo+OTCUy+gjj/y9gaQa1pu5lCNK+/URqP5j6s9xGdmzdkUyryXC0B/hy+qw8JDZzYh+5d9qJzAeZBPOo0oWbB3GPsM3eAEWsNg==
     - XUNIT_FILE=shippable/testresults/result.xml
     
+before_install:
+  - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  
 install:
   - source ~/.nvm/nvm.sh && nvm install 0.12
   - node --version
@@ -38,5 +43,7 @@ after_script:
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
   
-after_success :
-  - git push -f git@heroku.com:$APP_NAME.git master
+after_success:
+  - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f ~/.ssh/id_rsa > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
+  - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app $APP_NAME
+  - git push -f heroku $BRANCH
