@@ -12,7 +12,7 @@ node_js:
 env:
   global:
     - APP_NAME=withtoolbeltbb-oldyml
-   # - BRANCH=withtoolbelt
+    - BRANCH=withtoolbelt
     - secure: H9A1uikWu8ZNS1raJw7PssyOD7jamuSxDkJ3bg7GIwTXEq9HxN83Q+bY5PDtRo4nufZ4L/XjfRSKgFdBLxsY0goau2vXEsMXFCeWf6L4W6UXdN5i9//Lq1KAI/c7c56Ig0agxngQmH+msWOxLjt0TH6S9WK6LNmWryI4yPPfttdQbw2id6UCqARUix9NJ+EF6aPv2VhaeQsWsMe24ottakHiXTPXy/wZaZdnxWnQ2Ys06R7WhlAsRo+OTCUy+gjj/y9gaQa1pu5lCNK+/URqP5j6s9xGdmzdkUyryXC0B/hy+qw8JDZzYh+5d9qJzAeZBPOo0oWbB3GPsM3eAEWsNg==
     - XUNIT_FILE=shippable/testresults/result.xml
     
@@ -49,4 +49,4 @@ after_script:
 after_success:
   - test -f ~/.ssh/id_rsa.heroku || ssh-keygen -y -f /tmp/ssh/sub > ~/.ssh/id_rsa.heroku && heroku keys:add ~/.ssh/id_rsa.heroku
   - git remote -v | grep ^heroku || heroku git:remote --ssh-git --app $APP_NAME
-  - git push -f heroku withtoolbelt
+  - git push -f heroku $BRANCH:withtoolbelt
