@@ -1,7 +1,7 @@
 # Language setting
 language: node_js
 
-build_image: drydock/u12nod:prod
+#build_image: drydock/u12nod:prod
 
 # Version number
 node_js:
@@ -11,7 +11,7 @@ node_js:
 # The path for Xunit to output test reports
 env:
   global:
-    - APP_NAME=oldymlheroku-bb
+   # - APP_NAME=oldymlheroku-bb
     - XUNIT_FILE=shippable/testresults/result.xml
     
 install:
@@ -38,5 +38,5 @@ after_script:
   - ./node_modules/.bin/istanbul cover grunt -- -u tdd
   - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
   
-after_success :
-  - git push -f git@heroku.com:$APP_NAME.git master
+#after_success :
+ # - git push -f git@heroku.com:$APP_NAME.git master
