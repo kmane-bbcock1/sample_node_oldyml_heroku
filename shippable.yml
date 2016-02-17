@@ -31,7 +31,7 @@ install:
 
 # Create directories for test and coverage reports
 before_script:
-  - . $HOME/.rvm/scripts/rvm && rvm use ruby-2.0.0-p598 --default && ruby –version
+  - . $HOME/.rvm/scripts/rvm && rvm use ruby-2.0.0-p598 --default && ruby --version
   - mkdir -p shippable/testresults
   - mkdir -p shippable/codecoverage
 
