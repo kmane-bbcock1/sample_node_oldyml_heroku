@@ -20,7 +20,7 @@ before_install:
   - which heroku || wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   
 install:
-  - source ~/.nvm/nvm.sh && nvm install 0.12
+  #- source ~/.nvm/nvm.sh && nvm install 0.12
   - node --version
   - npm install
 #  - . installMongo.sh
